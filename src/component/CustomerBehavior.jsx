@@ -33,8 +33,8 @@ const behaviors = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
-    title: 'They choose in seconds.',
-    description: "The average decision happens in under 3 seconds. If you're buried below the fold, you've already lost the order.",
+    title: 'They choose in minutes.',
+    description: "The average decision happens in under 3 minutes. If you're buried below the fold, you've already lost the order.",
     gradient: 'from-indigo-500 to-violet-600',
     bgColor: 'bg-indigo-50',
     borderColor: 'border-indigo-100',
