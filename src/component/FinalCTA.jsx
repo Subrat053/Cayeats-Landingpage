@@ -1,6 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const FinalCTA = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isSubmissionSuccess, setIsSubmissionSuccess] = useState(false)
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // In a real app, you'd handle form submission here (e.g., an API call)
+    // For this example, we'll just simulate success.
+    setIsModalOpen(false);
+    setIsSubmissionSuccess(true);
+  }
+  
   return (
     <section id="join" className="relative overflow-hidden">
       {/* Animated gradient background */}
@@ -16,7 +27,7 @@ const FinalCTA = () => {
       <div className="absolute top-0 left-1/3 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-1/3 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl"></div>
 
-      <div className="relative max-w-5xl mx-auto pt-16 md:pt-24 pb-4 px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative max-w-5xl mx-auto py-16 md:py-28 px-4 sm:px-6 lg:px-8 text-center">
         {/* Icon */}
         <div className="flex justify-center mb-8">
           <div className="p-4 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-2xl shadow-2xl shadow-teal-500/30 animate-pulse-glow">
@@ -27,7 +38,7 @@ const FinalCTA = () => {
         </div>
 
         {/* Heading */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 leading-tight">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-5 md:mb-6 leading-tight">
           Ready to Increase
           <br />
           <span className="bg-gradient-to-r from-teal-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent animate-shimmer">
@@ -35,27 +46,21 @@ const FinalCTA = () => {
           </span>
         </h2>
 
-        <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed">
           Join the growing network of Cayman restaurants that are being discovered by more customers every day. Listing is <span className="text-teal-300 font-semibold">completely free</span>.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
-          <a
-            href="#join"
-            className="group relative w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-white font-bold py-4 px-10 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-teal-500/30"
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="group relative w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-white font-bold py-3.5 sm:py-4 px-8 sm:px-10 rounded-full text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-teal-500/30 cursor-pointer"
           >
             <span className="mr-2">Join CayEats</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
-          </a>
-          {/* <a
-            href="#book"
-            className="w-full sm:w-auto inline-flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white hover:text-slate-900 text-white font-bold py-4 px-10 rounded-full text-lg transition-all duration-300 hover:shadow-2xl"
-          >
-            Book a Call
-          </a> */}
+          </button>
         </div>
 
         {/* Trust signals */}
@@ -81,10 +86,93 @@ const FinalCTA = () => {
         </div>
 
         {/* Bottom tagline */}
-        <p className="my-4 text-base text-gray-200 italic">
-          "Online ordering isn't replacing dine-in - it's introducing new customers to your restaurant."
+        <p className="mt-10 md:mt-12 text-sm sm:text-base text-slate-500 italic">
+          "Once you're visible everywhere — your sales potential changes."
         </p>
       </div>
+
+      {/* Contact Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+          <div 
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+            onClick={() => setIsModalOpen(false)}
+          ></div>
+          <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all animate-fade-in-up">
+            <div className="bg-gradient-to-r from-teal-500 to-emerald-500 p-5 sm:p-8 text-white relative">
+              <button 
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-1"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <h3 className="text-xl sm:text-2xl font-bold mb-2">Join CayEats</h3>
+              <p className="text-teal-50 text-xs sm:text-sm">Ready to grow? Fill out the details below and we'll get your restaurant listed.</p>
+            </div>
+            <form className="p-5 sm:p-8 space-y-3.5 sm:space-y-4" onSubmit={handleSubmit}>
+              <div>
+                <label className="block text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Restaurant Name</label>
+                <input type="text" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800 font-medium placeholder:font-normal" placeholder="The Burger Shack" required />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div>
+                    <label className="block text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Your Name</label>
+                    <input type="text" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800" placeholder="John Doe" required />
+                </div>
+                <div>
+                    <label className="block text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Phone</label>
+                    <input type="tel" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800" placeholder="+1 345 123-4567" required />
+                </div>
+              </div>
+              <div>
+                <label className="block text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Email Address</label>
+                <input type="email" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800" placeholder="you@restaurant.com" required />
+              </div>
+              <div>
+                <label className="block text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Message or Questions (Optional)</label>
+                <textarea className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800 font-medium placeholder:font-normal" placeholder="Anything else we should know?" rows={3}></textarea>
+              </div>
+              <button type="submit" className="w-full bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-bold py-3 sm:py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 mt-2">
+                Send Application
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal */}
+      {isSubmissionSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+          <div 
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+            onClick={() => setIsSubmissionSuccess(false)}
+          ></div>
+          <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all animate-fade-in-up text-center p-6 sm:p-8 md:p-10">
+            {/* Icon */}
+            <div className="flex justify-center mb-6">
+                <div className="p-4 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-full shadow-lg shadow-teal-500/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+            </div>
+            {/* Content */}
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Your Request Has Been Accepted</h3>
+            <p className="text-sm sm:text-base text-slate-600 mb-6 sm:mb-8">
+                Thank you for contacting us. We've received your application and will get back to you shortly.
+            </p>
+            {/* Close Button */}
+            <button
+                onClick={() => setIsSubmissionSuccess(false)}
+                className="w-full bg-slate-100 hover:bg-slate-200 text-sm sm:text-base text-slate-700 font-bold py-3 rounded-xl transition-all"
+            >
+                Close
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

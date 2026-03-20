@@ -80,7 +80,7 @@ const Herosection = () => {
         <div className="animate-fade-in-up mt-13 mb-6 flex flex-wrap justify-center gap-6 sm:gap-10" style={{ animationDelay: '0.8s' }}>
           {[
             { num: '100+', label: 'Restaurants' },
-            { num: '50K+', label: 'Monthly Visitors' },
+            { num: '20K+', label: 'Monthly Visitors' },
             { num: '2', label: 'Delivery Platforms' },
           ].map((badge, i) => (
             <div key={i} className="flex flex-col items-center">

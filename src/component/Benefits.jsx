@@ -93,7 +93,8 @@ const Benefits = () => {
                 <div className="text-center mt-4 md:mt-8 mb-2">
                     <div className="inline-flex  items-center gap-4 bg-gradient-to-r from-slate-600 to-slate-800 rounded-2xl py-6 px-8 md:px-12 shadow-xl">
                         <p className="text-xl md:text-2xl font-bold text-white">
-                            "Customers who first discover a brand digitally are more likely to become repeat buyers. <span className="text-teal-400"></span>"
+                            "Delivery orders are often the first introduction to your restaurant.
+                            Many customers try a restaurant through delivery before they ever dine there. <span className="text-teal-400"></span>"
                         </p>
                     </div>
                     {/* Customers who first discover a brand digitally are more likely to become repeat buyers. */}
