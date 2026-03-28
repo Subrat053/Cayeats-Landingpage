@@ -3,13 +3,56 @@ import React, { useState } from 'react'
 const FinalCTA = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSubmissionSuccess, setIsSubmissionSuccess] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // In a real app, you'd handle form submission here (e.g., an API call)
-    // For this example, we'll just simulate success.
-    setIsModalOpen(false);
-    setIsSubmissionSuccess(true);
+  const contactApiUrl = `${(import.meta.env.VITE_API_BASE_URL || 'https://api.cayeats.online').replace(/\/$/, '')}/api/browse/contact`
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSubmitError('')
+    setIsSubmitting(true)
+    const formElement = e.currentTarget
+
+    const formData = new FormData(formElement)
+    const payload = {
+      restaurantName: formData.get('restaurantName')?.toString().trim() || '',
+      name: formData.get('name')?.toString().trim() || '',
+      phone: formData.get('phone')?.toString().trim() || '',
+      email: formData.get('email')?.toString().trim() || '',
+      message: formData.get('message')?.toString().trim() || ''
+    }
+
+    try {
+      const response = await fetch(contactApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+
+      if (!response.ok) {
+        let errorMessage = 'Unable to submit your request right now. Please try again.'
+        try {
+          const errorData = await response.json()
+          if (errorData?.message) {
+            errorMessage = errorData.message
+          }
+        } catch {
+          // Keep fallback message when the server does not return JSON.
+        }
+        throw new Error(errorMessage)
+      }
+
+      formElement.reset()
+      setIsModalOpen(false)
+      setIsSubmissionSuccess(true)
+    } catch (error) {
+      setSubmitError(error?.message || 'Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
   
   return (
@@ -53,7 +96,10 @@ const FinalCTA = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => {
+              setSubmitError('')
+              setIsModalOpen(true)
+            }}
             className="group relative w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-white font-bold py-3.5 sm:py-4 px-8 sm:px-10 rounded-full text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-teal-500/30 cursor-pointer"
           >
             <span className="mr-2">Join CayEats</span>
@@ -96,12 +142,20 @@ const FinalCTA = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
           <div 
             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => {
+              if (isSubmitting) return
+              setSubmitError('')
+              setIsModalOpen(false)
+            }}
           ></div>
           <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all animate-fade-in-up">
             <div className="bg-gradient-to-r from-teal-500 to-emerald-500 p-5 sm:p-8 text-white relative">
               <button 
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => {
+                  if (isSubmitting) return
+                  setSubmitError('')
+                  setIsModalOpen(false)
+                }}
                 className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-1"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -114,28 +168,33 @@ const FinalCTA = () => {
             <form className="p-5 sm:p-8 space-y-3.5 sm:space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Restaurant Name</label>
-                <input type="text" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800 font-medium placeholder:font-normal" placeholder="The Burger Shack" required />
+                <input name="restaurantName" type="text" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800 font-medium placeholder:font-normal" placeholder="The Burger Shack" required disabled={isSubmitting} />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                     <label className="block text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Your Name</label>
-                    <input type="text" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800" placeholder="John Doe" required />
+                    <input name="name" type="text" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800" placeholder="John Doe" required disabled={isSubmitting} />
                 </div>
                 <div>
                     <label className="block text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Phone</label>
-                    <input type="tel" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800" placeholder="+1 345 123-4567" required />
+                    <input name="phone" type="tel" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800" placeholder="+1 345 123-4567" required disabled={isSubmitting} />
                 </div>
               </div>
               <div>
                 <label className="block text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Email Address</label>
-                <input type="email" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800" placeholder="you@restaurant.com" required />
+                <input name="email" type="email" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800" placeholder="you@restaurant.com" required disabled={isSubmitting} />
               </div>
               <div>
                 <label className="block text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Message or Questions (Optional)</label>
-                <textarea className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800 font-medium placeholder:font-normal" placeholder="Anything else we should know?" rows={3}></textarea>
+                <textarea name="message" className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none text-sm sm:text-base text-slate-800 font-medium placeholder:font-normal" placeholder="Anything else we should know?" rows={3} disabled={isSubmitting}></textarea>
               </div>
-              <button type="submit" className="w-full bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-bold py-3 sm:py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 mt-2">
-                Send Application
+              {submitError && (
+                <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl p-3">
+                  {submitError}
+                </p>
+              )}
+              <button type="submit" disabled={isSubmitting} className="w-full bg-slate-900 hover:bg-slate-800 disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm sm:text-base font-bold py-3 sm:py-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 mt-2">
+                {isSubmitting ? 'Sending...' : 'Send Application'}
               </button>
             </form>
           </div>
