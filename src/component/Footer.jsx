@@ -25,7 +25,7 @@ const Footer = () => {
       {/* Subtle top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-32 bg-teal-500/10 rounded-full blur-3xl"></div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 lg:py-20">
         {/* Newsletter Section */}
         <div className="text-center mb-16 pb-12 border-b border-slate-800">
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
@@ -123,13 +123,13 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-semibold text-slate-200 uppercase tracking-wider mb-5">Get in Touch</h3>
             <div className="space-y-4">
-              <a href="mailto:hello@cayeats.com" className="flex items-center gap-3 text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm">
+              <a href="mailto:info@cayeats.com" className="flex items-center gap-3 text-slate-400 hover:text-teal-400 transition-colors duration-300 text-sm">
                 <div className="p-2 bg-white/5 rounded-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                hello@cayeats.com
+                info@cayeats.com
               </a>
               <div className="flex items-center gap-3 text-slate-400 text-sm">
                 <div className="p-2 bg-white/5 rounded-lg">
@@ -150,9 +150,7 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} CayEats. All rights reserved.
           </p>
           <p className="text-slate-600 text-xs flex items-center gap-1.5">
-            Made with
-            <span className="text-rose-500 animate-pulse">♥</span>
-            for Cayman Islands Restaurants
+            Made for Cayman Islands Restaurants
           </p>
         </div>
       </div>

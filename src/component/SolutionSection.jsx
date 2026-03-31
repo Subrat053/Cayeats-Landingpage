@@ -55,8 +55,8 @@ const SolutionSection = () => {
                                 {oldWayItems.map((item, i) => (
                                     <div key={i} className="flex flex-col items-center p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-slate-200 transition-colors duration-300">
                                         <span className="text-3xl mb-2">{item.icon}</span>
-                                        <p className="font-semibold text-slate-700 text-sm">{item.label}</p>
-                                        <p className="text-xs text-slate-400 mt-1">{item.desc}</p>
+                                        <p className="font-semibold text-slate-700 text-center text-sm">{item.label}</p>
+                                        <p className="text-xs text-slate-400 mt-1 text-center">{item.desc}</p>
                                     </div>
                                 ))}
                             </div>

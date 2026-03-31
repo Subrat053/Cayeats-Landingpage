@@ -11,7 +11,7 @@ const stepsData = [
     {
         number: '02',
         title: 'List on CayEats',
-        description: 'Add your restaurant to the CayEats directory. Include your menu, photos, delivery info — all in under 10 minutes. It\'s free.',
+        description: 'Add your restaurant to the CayEats directory. Include your menu, photos, delivery info — all in under 10 minutes.',
         image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=600&auto=format&fit=crop',
         gradient: 'from-indigo-500 to-violet-500',
     },

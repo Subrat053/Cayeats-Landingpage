@@ -57,10 +57,10 @@ const Authority = () => {
                 {/* Section Header */}
                 <div className="text-center mb-16 md:mb-20">
                     <span className="inline-block text-teal-600 font-semibold text-sm tracking-widest uppercase mb-4">Our Role</span>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-                        CayEats <span className="gradient-text">Enhances</span>- Not Replaces
+                    <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                        CayEats <span className="gradient-text">Enhances</span>- Not Replaces 
                         <br className="hidden sm:block" />
-                        Delivery Platforms
+                        <span className="ml-1">Delivery Platforms</span>
                     </h2>
                     <p className="text-lg text-slate-500 max-w-2xl mx-auto">
                         We're the missing layer between restaurants and customers — working alongside every delivery platform, not against them.
@@ -93,12 +93,12 @@ const Authority = () => {
                         </div>
                     ))}
                 </div>
-                <div className='relative max-w-6xl mx-auto bg-gradient-to-r from-slate-400 to-slate-500 rounded-2xl p-8 md:p-10 text-center mb-4'>
+                <div className='relative max-w-6xl mx-auto bg-slate-700 rounded-2xl p-8 md:p-10 text-center mb-4'>
                     <div className="text-center ">
                         <p className="text-xl md:text-[20px] font-bold text-white mb-1">
                             Industry studies consistently show: <span className="text-teal-300">~60-70% of customers try a new restaurant via online ordering.</span>
                         </p>
-                        <p className="text--100 text-md text-center">(including data from the National Restaurant Association and major delivery platforms)</p>
+                        <p className="text-slate-400 text-md text-center">(including data from the National Restaurant Association and major delivery platforms)</p>
                     </div>
                 </div>
             </div>
