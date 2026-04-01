@@ -31,7 +31,7 @@ const Navbar = () => {
           {/* Logo */}
           <a href="#" className="flex items-center gap-3 group">
             <div className="relative">
-              <img src={logo} alt="CayEats" className="h-10 md:h-12 rounded-xl group-hover:scale-105 transition-transform duration-300" />
+              <img src={logo} alt="CayEats" className="h-10 md:h-12 rounded-xl group-hover:scale-125 scale-150 transition-transform duration-300" />
               <div className="absolute -inset-1 bg-teal-500/20 rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           </a>
